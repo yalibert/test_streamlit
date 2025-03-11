@@ -1,5 +1,6 @@
 from tqdm import tqdm
 import ads
+import transformers
 from transformers import BertTokenizer
 from transformers import BertForSequenceClassification, BertConfig
 import numpy as np
@@ -33,12 +34,21 @@ st.markdown("The abstracts are downloaded from arXiv, from the X last days.")
 # download model
 ################
 
+
+
 tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_cased', do_lower_case=True)
 
 num_labels = 2
 
-model_full = BertForSequenceClassification.from_pretrained('allenai/scibert_scivocab_cased', num_labels=num_labels,
-                                                            output_attentions=False, output_hidden_states=False)
+transformers.logging.set_verbosity_error()  # Suppress warnings
+
+model_full = BertForSequenceClassification.from_pretrained(
+    'allenai/scibert_scivocab_cased',
+    num_labels=num_labels,
+    output_attentions=False,
+    output_hidden_states=False
+)
+
 
 max_sequence_length = 512
 
