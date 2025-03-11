@@ -1,19 +1,11 @@
 from tqdm import tqdm
 import ads
-#import pandas as pd
 from transformers import BertTokenizer
 from transformers import BertForSequenceClassification, BertConfig
 import numpy as np
-#from sklearn.model_selection import train_test_split
-#from safetensors.torch import save_file
 from safetensors import safe_open
 from transformers import get_linear_schedule_with_warmup
-#import time
-#import random
 import torch
-#import torch.nn.functional as F
-#from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
-#import json
 import textwrap
 import matplotlib.pyplot as plt
 import requests
@@ -22,6 +14,13 @@ from datetime import datetime, timedelta
 import streamlit as st
 import io 
 import os
+import streamlit as st
+import asyncio
+
+try:
+    asyncio.get_running_loop()
+except RuntimeError:
+    asyncio.set_event_loop(asyncio.new_event_loop())
 
 st.set_page_config(
         page_title="arXiv embedding - Download and embed abstract from last days",
@@ -83,19 +82,19 @@ def load_model(_model,device):
     if isinstance(state_dict, dict) and "state_dict" in state_dict:
         state_dict = state_dict["state_dict"]
 
-    model.load_state_dict(state_dict)
+    model.load_state_dict(state_dict, strict=False)
     model.to(device)
     model.eval()  # Set to evaluation mode
     return model, device
 
 if download_model():  # Ensure the model is downloaded before loading
-    model, device = load_model(model,device)
+    model, device = load_model(model, device)
 
     if model:
         st.success(f"Model loaded successfully on {device}!")
     else:
         st.error("Could not load the model.")
-
+        st.stop()  # Prevents execution if model is not loaded
 
 ################################
 # function to compute embeddings
