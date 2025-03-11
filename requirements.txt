@@ -24,7 +24,6 @@ dill==0.3.8
 cachetools==4.2.2
 markupsafe==3.0.2
 filelock==3.17.0
-gmpy2==2.1.2
 platformdirs==3.10.0
 pydantic==2.5.3
 jmespath==1.0.1
