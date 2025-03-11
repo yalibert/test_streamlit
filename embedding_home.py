@@ -1,6 +1,8 @@
 
 import os
 import subprocess
+import sys
+
 
 requirements_file = "requirements.txt"
 
@@ -12,4 +14,5 @@ import streamlit as st
 st.markdown("# embedding  app")
 
 st.markdown("This is an app to compute and visualize sciBERT embeddings of arXiv abstracts.")                                                                              
+
 st.write(f"Python version: {sys.version}")
