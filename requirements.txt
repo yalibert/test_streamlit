@@ -44,7 +44,7 @@ botocore==1.35.3
 ipykernel==6.25.0
 pexpect==4.8.0
 blinker==1.4
-numpy==1.23.5
+numpy>=1.24
 tornado==6.3.2
 ipywidgets==8.0.4
 entrypoints==0.4
